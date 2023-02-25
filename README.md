@@ -10,29 +10,36 @@ provider
 
 Test Automation folders:
 8. Have created base, pages and tests packages
+
 BaseTest:
 9. Have created BaseTest class in Base such that it is responsible for the initialising and quiting the driver
+
 10. Have used before and after method for intializing and quiting the driver so for every test case the driver 
 is initialized and quit after the test case
+
 11. create explicit wait method "waitForElementToDisplay" to use it across all the elements.
 HomePage:
 12. In home page have created locators and action methods using page factory and intialized using method
 initelements. Have followed pom model
 Tests:
+
 13. In UrlTest class have created one test case with multiple test data such that all the tests will be executed.
 14. some test cases expected results are "site can't be reached" but selenium throws exception for the expected
 results. For all those test case I have handled the exception and made test pass.
 15. selenium throws different exception for different browsers. will update accordingly as of now handled chrome
 exceptions.
 TestNg.xml:
+
 16. To execute the tests please use testngCHROME.xml.
 Test Executions:
+
 17. Have run tests on multiple browsers as of now chrome, firefox and opera
 18. In executions folder use appropriate xml file to run the tests.
 19. if any chrome driver version exception occur please update the chrome the browser with the latest version 
 and run again.
 20. For parallel executions use testngPARAELLEL.xml file
 Maven:
+
 21. update the suit xml file in pom.xml with appropriate testng.xml file you want to run.
 22. To run using maven first make sure maven is installed in your system and then use this command in terminal
 mvn clean test
