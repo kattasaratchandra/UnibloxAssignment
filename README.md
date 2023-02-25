@@ -31,3 +31,12 @@ Test Executions:
 18. In executions folder use appropriate xml file to run the tests.
 19. if any chrome driver version exception occur please update the chrome the browser with the latest version 
 and run again.
+20. For parallel executions use testngPARAELLEL.xml file
+Maven:
+21. update the suit xml file in pom.xml with appropriate testng.xml file you want to run.
+22. To run using maven first make sure maven is installed in your system and then use this command in terminal
+mvn clean test
+Allure Reports:
+23. make sure allure reports are installed in your system. once maven execution is done use below command for 
+reports
+allure serve allure-results

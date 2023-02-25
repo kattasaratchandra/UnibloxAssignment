@@ -118,7 +118,7 @@
         <version>3.0.0-M9</version>
         <configuration>
           <suiteXmlFiles>
-            <suiteXmlFile>executions/testngPARALLEL.xml</suiteXmlFile>
+            <suiteXmlFile>executions/testngCHROME.xml</suiteXmlFile>
           </suiteXmlFiles>
         </configuration>
       </plugin>
