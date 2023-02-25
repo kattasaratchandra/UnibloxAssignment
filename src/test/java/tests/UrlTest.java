@@ -13,7 +13,7 @@ public class UrlTest extends BaseTest {
 
     @BeforeMethod
     public  void beforeMethod(){
-        home = new HomePage(driver);
+        home = new HomePage(getDriver());
     }
 
     @Test(dataProvider = "test data")

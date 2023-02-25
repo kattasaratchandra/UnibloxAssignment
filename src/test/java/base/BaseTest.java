@@ -1,15 +1,17 @@
 package base;
 
 import io.github.bonigarcia.wdm.WebDriverManager;
-import org.openqa.selenium.By;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
+import org.apache.commons.io.FileUtils;
+import org.openqa.selenium.*;
 import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.WebDriverWait;
+import org.testng.ITestResult;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Parameters;
 
+import java.io.File;
+import java.io.IOException;
 import java.time.Duration;
 import java.util.Objects;
 
@@ -21,21 +23,29 @@ import java.util.Objects;
  */
 public class BaseTest {
 
-    protected static WebDriver driver;
+    private ThreadLocal<WebDriver> driver = new ThreadLocal<>();
     protected WebDriverWait wait;
+
+    private void setDriver(WebDriver driver){
+        this.driver.set(driver);
+    }
+
+    protected WebDriver getDriver(){
+        return this.driver.get();
+    }
 
     @Parameters("browser")
     @BeforeMethod
     public void BeforeTest(String browser){
         //initialize the driver
         if(Objects.equals(browser, "FIREFOX")) {
-            driver = WebDriverManager.firefoxdriver().create();
+            setDriver(WebDriverManager.firefoxdriver().create());
         } else if (browser.equals("CHROME")) {
-            driver = WebDriverManager.chromedriver().create();
+            setDriver(WebDriverManager.chromedriver().create());
         } else if (browser.equals("OPERA")) {
-            driver = WebDriverManager.operadriver().create();
+            setDriver(WebDriverManager.operadriver().create());
         }
-        driver.manage().window().maximize();
+        getDriver().manage().window().maximize();
 
     }
 
@@ -43,8 +53,21 @@ public class BaseTest {
         return wait.until(driver -> driver.findElement(By.cssSelector(locator)));
     }
 
+    @Parameters("browser")
     @AfterMethod
-    public void AfterTest(){
-        driver.quit();
+    public void AfterTest(ITestResult result, String browser) throws IOException {
+        if(result.getStatus() == ITestResult.FAILURE){
+            File destFile = new File("src" + File.separator + browser + File.separator +
+                    result.getTestClass().getRealClass().getSimpleName() + "_" +
+                    result.getMethod().getMethodName() + ".png");
+            takeScreenshot(destFile);
+        }
+        getDriver().quit();
+    }
+
+    private void takeScreenshot(File destFile) throws IOException {
+        TakesScreenshot takesScreenshot = (TakesScreenshot) getDriver();
+        File srcFile = takesScreenshot.getScreenshotAs(OutputType.FILE);
+        FileUtils.copyFile(srcFile, destFile);
     }
 }
