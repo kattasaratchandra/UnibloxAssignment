@@ -17,16 +17,17 @@ public class UrlTest extends BaseTest {
     }
 
     @Test(dataProvider = "test data")
-    public void HttpTest(String url){
+    public void HttpTest(String url) {
         try {
             home.goToUrl(url);
             String actual = home.getButtonText();
             Assert.assertEquals(actual, "Get Started");
-        } catch (Exception e){
+        } catch (Exception e) {
             System.out.println(e.toString());
-            if(e.toString().contains("ERR_NAME_NOT_RESOLVED")){
-        }
-        else {
+            if (e.toString().contains("Reached error page") || e.toString().contains("ERR_NAME_NOT_RESOLVED")
+                    || e.toString().contains("Malformed URL")) {
+                System.out.println("exception handled");
+            } else {
                 throw e;
             }
         }

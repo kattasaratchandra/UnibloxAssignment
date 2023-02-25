@@ -24,10 +24,17 @@ public class BaseTest {
     protected static WebDriver driver;
     protected WebDriverWait wait;
 
+    @Parameters("browser")
     @BeforeMethod
-    public void BeforeTest(){
+    public void BeforeTest(String browser){
         //initialize the driver
-        driver = WebDriverManager.chromedriver().create();
+        if(Objects.equals(browser, "FIREFOX")) {
+            driver = WebDriverManager.firefoxdriver().create();
+        } else if (browser.equals("CHROME")) {
+            driver = WebDriverManager.chromedriver().create();
+        } else if (browser.equals("OPERA")) {
+            driver = WebDriverManager.operadriver().create();
+        }
         driver.manage().window().maximize();
 
     }

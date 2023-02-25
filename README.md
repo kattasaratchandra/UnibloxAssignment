@@ -26,3 +26,8 @@ results. For all those test case I have handled the exception and made test pass
 exceptions.
 TestNg.xml:
 16. To execute the tests please use testngCHROME.xml.
+Test Executions:
+17. Have run tests on multiple browsers as of now chrome, firefox and opera
+18. In executions folder use appropriate xml file to run the tests.
+19. if any chrome driver version exception occur please update the chrome the browser with the latest version 
+and run again.
