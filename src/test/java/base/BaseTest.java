@@ -2,8 +2,10 @@ package base;
 
 import io.github.bonigarcia.wdm.WebDriverManager;
 import org.apache.commons.io.FileUtils;
+import org.json.simple.JSONObject;
+import org.json.simple.parser.JSONParser;
+import org.json.simple.parser.ParseException;
 import org.openqa.selenium.*;
-import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.ITestResult;
 import org.testng.annotations.AfterMethod;
@@ -11,9 +13,11 @@ import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Parameters;
 
 import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
 import java.io.IOException;
-import java.time.Duration;
 import java.util.Objects;
+import java.util.Properties;
 
 /***
  * 1. This class is responsible to initialize driver and quit the driver.
@@ -25,6 +29,7 @@ public class BaseTest {
 
     private ThreadLocal<WebDriver> driver = new ThreadLocal<>();
     protected WebDriverWait wait;
+    protected Properties props;
 
     private void setDriver(WebDriver driver){
         this.driver.set(driver);
@@ -69,5 +74,12 @@ public class BaseTest {
         TakesScreenshot takesScreenshot = (TakesScreenshot) getDriver();
         File srcFile = takesScreenshot.getScreenshotAs(OutputType.FILE);
         FileUtils.copyFile(srcFile, destFile);
+    }
+
+    public Properties getProps() throws IOException, ParseException {
+        props=new Properties();
+        FileReader reader=new FileReader( System.getProperty("user.dir")+"/src/test/java/TestData/Data.properties");
+        props.load(reader);
+        return props;
     }
 }

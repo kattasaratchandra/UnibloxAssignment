@@ -3,10 +3,10 @@ Automation design:
 2. I will be executing the same test case with multiple test data for this I used data provider
 3. I will be writing one test script for this 13 test cases each test case will get test data from data
 provider
-4. Able to cover 13 test cases where 12 passed and 1 fail.  
+4. Able to cover 13 test cases where 11 passed and 2 fail.  
 5. If we want to test with other data all we need to do is add the test data to json file
 6. Tests execution with testng.xml files
-7. Have Automated 13 Test cases 12 passed and 1 failed please refer to the Excel sheet on the same.
+7. Have Automated 13 Test cases 11 passed and 2 failed please refer to the Excel sheet on the same.
 
 Test Automation folders:
 8. Have created base, pages and tests packages

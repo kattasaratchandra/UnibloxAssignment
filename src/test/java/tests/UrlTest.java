@@ -2,11 +2,17 @@ package tests;
 
 import base.BaseTest;
 import io.github.bonigarcia.wdm.WebDriverManager;
+import org.json.simple.JSONObject;
+import org.json.simple.parser.JSONParser;
+import org.json.simple.parser.ParseException;
 import org.testng.Assert;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 import pages.HomePage;
+
+import java.io.IOException;
+import java.util.Properties;
 
 public class UrlTest extends BaseTest {
     HomePage home;
@@ -34,20 +40,21 @@ public class UrlTest extends BaseTest {
     }
 
     @DataProvider(name = "test data")
-    public Object[][] dataProviderfunc(){
-        return new Object[][] { {"http://d3j8nuwp74eyml.cloudfront.net/5U5PU/S2xbn"},
-                {"https://d3j8nuwp74eyml.cloudfront.net/5U5PU/S2xbn"},
-                {"   https://d3j8nuwp74eyml.cloudfront.net/5U5PU/S2xbn"},
-                {"https://d3j8nuwp74eyml.cloudfront.net/5U5PU/S2xbn   "},
-                {"https://d3j8nuwp74eyml.com/5U5PU/S2xbn"},
-                {"https://d3j8nuwp74eyml.cloudfront.net"},
-                {"https:// d3j8nuwp74eyml. cloudfront. net /5U5PU/ S2xbn"},
-                {"https://d3j8nuwp74eyml.com/5U5PU/S2xbn"},
-                {"https://d3j8nuwp74eyml.in/5U5PU/S2xbn"},
-                {"https://d3j8nuwp74eyml.org/5U5PU/S2xbn"},
-                {"https://d3j8nuwp74eyml.com"},
-                {"https://d3j8nuwp74eyml/5U5PU/S2xbn"},
-                {"https://.cloudfront.net/5U5PU/S2xbn"}};
+    public Object[][] dataProviderfunc() throws IOException, ParseException {
+        Properties data = getProps();
+        return new Object[][] { {data.getProperty("httpLink")},
+                {data.getProperty("httpsLink")},
+                {data.getProperty("UrlSpacesAtTheStart")},
+                {data.getProperty("UrlSpacesAtTheEnd")},
+                {data.getProperty("UrlSpacesInBetween")},
+                {data.getProperty("extensionWithCom")},
+                {data.getProperty("extensionWithIn")},
+                {data.getProperty("extensionWithOrg")},
+                {data.getProperty("extension.ComWithoutPathParameter")},
+                {data.getProperty("withoutAnyExtension")},
+                {data.getProperty("onlyExtension")},
+                {data.getProperty("UrlWithSlash")},
+                {data.getProperty("ValidUrlWithoutPathParameter")}};
 
     }
 
